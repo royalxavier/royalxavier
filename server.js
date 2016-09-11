@@ -11,7 +11,7 @@ function start(route,handle){
 		route(handle,pathname,response);//传递请求处理器对象和路由给路由器，
 	};
 
-	var port=3000;//服务器端口
+	var port=process.env.PORT || 5000;//服务器端口
 	//创建服务器
 	http.createServer(onRequest).listen(port);
 
