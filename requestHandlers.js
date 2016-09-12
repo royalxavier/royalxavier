@@ -24,14 +24,16 @@ function whoami(response,pathname,request) {
       				request.connection.remoteAddress ||
           				request.socket.remoteAddress ||
 	      					request.connection.socket.remoteAddress;
-	var language=request.headers['accept-language'];
-	var software=request.headers['user-agent'];
+	var language=request.headers['accept-language'].split(',')[0];
+	var user_agent=request.headers['user-agent'];
+	var firstPos=user_agent.indexOf("(")+1;
+	var secondPos=user_agent.indexOf(")");
+	var software=user_agent.slice(firstPos,secondPos);
 	var i={"ipaddress":ipaddress,"language":language,"software":software};
+	console.log('路由器收到 "'+pathname+'" 路由请求。\n');
+	console.log("whoami处理器被调用。\n");
 	response.writeHead(200,{"Content-Type":"text/plain;charset=utf-8"});
-	response.write('路由器收到 "'+pathname+'" 路由请求。\n');
-	response.write("whoami处理器被调用。\n");
-	response.write(JSON.stringify(i)+"\n");
-	response.end('请求处理响应结束。');
+	response.end(JSON.stringify(i)+"\n");
 	console.log('请求处理响应结束。\n');
 
 }
