@@ -8,7 +8,7 @@ function start(route,handle){
 	function onRequest(request,response) {
 		console.log('服务器收到 '+request.url+' url请求。');
 		var pathname=url.parse(request.url).pathname;//获取路由
-		route(handle,pathname,response);//传递请求处理器对象和路由给路由器，
+		route(handle,pathname,response,request);//传递请求处理器对象和路由给路由器，
 	};
 
 	var port=process.env.PORT || 5000;//服务器端口
